@@ -1,0 +1,15 @@
+name: Classy
+type: theme
+description: 'A base theme with sensible default CSS classes added. Learn how to use Classy as a base theme in the <a href="https://www.drupal.org/theme-guide/8">Drupal 8 Theming Guide</a>.'
+package: Core
+# version: VERSION
+# core: 8.x
+
+libraries:
+  - classy/base
+
+# Information added by Drupal.org packaging script on 2015-06-29
+version: '8.0.0-beta12'
+core: '8.x'
+project: 'drupal'
+datestamp: 1435602053

@@ -41,12 +41,14 @@
             <h1>Tasks</h1>
             <h5>Drupal 8 and AngularJS</h5>
             <hr />
+
             <ul class="tasks">
-                <li data-ng-repeat="task in tasks | filter:taskFilter">
-                    <a href="task/{{ task.nid }}" data-ng-bind-html="task.title"></a> {{ task.field_type }}
+                <li data-ng-repeat="task in tasks | filter:taskFilter | orderBy:'task.nid'">
+                    <a href="task/{{ task.nid }}" data-ng-bind-html="task.title"></a>
                 </li>
             </ul>
             <hr />
+
             <form data-ng-submit="newTask()">
                 <div class="form-group">
                     <label>Create a new task</label>
@@ -56,6 +58,7 @@
                 </div>
             </form>
             <hr />
+
             <form>
                 <div class="form-group">
                     <label>Search tasks</label>

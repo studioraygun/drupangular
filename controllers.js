@@ -70,8 +70,8 @@ app.controller('singleTask', function($scope, $http, $routeParams){
         package._links = {"type":{"href":"http://taskapp:8888/drupal/rest/type/node/task"}}
 
         $http({
-            url: 'http://taskapp:8888/drupal/node/' + $routeParams.id,
-            method: 'PATCH',
+            url: 'http://taskapp:8888/drupal/node/' + $routeParams.id, // Hit the endpoint and pass the ID of the content
+            method: 'PATCH', // Send a pacth request to update the content
             data: package,
             headers: {
                 "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
@@ -81,7 +81,6 @@ app.controller('singleTask', function($scope, $http, $routeParams){
         })
         .success(function(data){
             // Update the status field in the view
-            console.log(status);
             $scope.task.field_status = status;
         });
     }

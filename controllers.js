@@ -80,7 +80,7 @@ app.controller('singleTask', function($scope, $http, $routeParams){
             },
         })
         .success(function(data){
-            console.log(status);
+            // Update the status field in the view
             $scope.task.field_status = status;
         });
     }

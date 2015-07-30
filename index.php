@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>AngularJS/Drupal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.4.3/angular-route.min.js"></script>
         <script src="https://code.angularjs.org/1.4.3/angular-sanitize.min.js"></script>

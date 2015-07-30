@@ -54,5 +54,36 @@ app.controller('singleTask', function($scope, $http, $routeParams){
     $http.get('http://taskapp:8888/drupal/tasks/' + $routeParams.id)
     .success(function(data){
         $scope.task = data[0];
-    })
+    });
+
+    $scope.updateStatus = function(status){
+        //console.log(status);
+        // status = status of task
+        // $routeParams.id = task id
+
+        // Change the status of the task
+        // Get the status, check if it is equal to 1, if it is, change to to 0, if it isn't change it to 1
+        status = (status == 1) ? 0 : 1;
+
+        // Set up a blank object
+        var package = {};
+        // Pass it some detals
+        package.field_status = [{'value': status}]
+        package._links = {"type":{"href":"http://taskapp:8888/drupal/rest/type/node/task"}}
+
+        $http({
+            url: 'http://taskapp:8888/drupal/node/' + $routeParams.id,
+            method: 'PATCH',
+            data: package,
+            headers: {
+                "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
+                "X-CSRF-Token": "1YXotIM8Aonl0eA1Fz50-f46pPYzGNhvwDoyv85_sdM", // token can be found at /rest/session/token
+                "Content-Type": "application/hal+json",
+            },
+        })
+        .success(function(data){
+            //console.log(status);
+            $scope.task.field_status = status;
+        });
+    }
 });

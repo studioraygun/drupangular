@@ -52,7 +52,7 @@
             <form data-ng-submit="newTask()">
                 <div class="form-group">
                     <label>Create a new task</label>
-                    <input data-ng-model="title" class="form-control" placeholder="Task title" autofocus required />
+                    <input data-ng-model="title" class="form-control" placeholder="Task title" autofocus  />
                     <textarea data-ng-model="body" class="form-control" placeholder="Task description"></textarea>
                     <button class="btn btn-primary" type="submit">Add Task</button>
                 </div>

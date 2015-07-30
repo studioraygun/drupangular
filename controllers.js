@@ -61,7 +61,7 @@ app.controller('singleTask', function($scope, $http, $routeParams){
         // Change the status of the task
         // Check if status is true (1). If it is, change to to 0, if it isn't change it to 1
         // http://stackoverflow.com/a/18269305/874691
-        status = (status) ? 0 : 1;
+        status = (status == 1) ? 0 : 1;
 
         // Set up a blank object
         var package = {};
@@ -81,6 +81,7 @@ app.controller('singleTask', function($scope, $http, $routeParams){
         })
         .success(function(data){
             // Update the status field in the view
+            console.log(status);
             $scope.task.field_status = status;
         });
     }

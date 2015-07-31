@@ -1,4 +1,5 @@
 <div data-ng-controller="singleTask">
+
 	<h2 data-ng-bind-html="task.title"></h2>
 	<p>
 		<a href="#" data-ng-click="updateStatus(task.field_status)">

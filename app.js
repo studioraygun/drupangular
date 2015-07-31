@@ -5,7 +5,7 @@
  */
 
 // Set up the app and dependencies
-var app = angular.module('taskApp', ['ngRoute', 'ngSanitize']);
+var app = angular.module('taskApp', ['ngRoute', 'ngSanitize', 'angular-loading-bar']);
 
 // Configure the application routes
 app.config(['$routeProvider', '$locationProvider',

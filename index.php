@@ -11,9 +11,11 @@
         <script src="https://code.angularjs.org/1.4.3/angular-route.min.js"></script>
         <script src="https://code.angularjs.org/1.4.3/angular-sanitize.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="vendor/loading-bar.css">
         <script src="app.js"></script>
         <script src="services.js"></script>
         <script src="controllers.js"></script>
+        <script src="vendor/loading-bar.js"></script>
         <style>
             .sidebar{
                 float:left;

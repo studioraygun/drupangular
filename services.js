@@ -13,4 +13,9 @@ app.service('GetTasks', function($http){
             callback(data);
         })
     }
-})
+});
+
+
+app.service('GetUser', function($http){
+
+});

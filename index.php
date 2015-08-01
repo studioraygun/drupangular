@@ -16,6 +16,7 @@
         <script src="services.js"></script>
         <script src="controllers.js"></script>
         <script src="vendor/loading-bar.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <style>
             .sidebar{
                 float:left;
@@ -40,6 +41,21 @@
         </style>
     </head>
     <body>
+
+        <div data-ng-controller="LoginForm">
+            {{user}}
+            <form data-ng-submit="userLogin()">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input data-ng-model="user.name" name="name" class="form-control" />
+                    <label>Password</label>
+                    <input data-ng-model="user.pass" type="password" name="pass" class="form-control" />
+                    <input type="hidden" data-ng-model="user.form_id" name="form_id" value="user_login_form" />
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+
         <div data-ng-controller="TaskList" class="sidebar">
             <h1>Tasks</h1>
             <h5>Drupal 8 and AngularJS</h5>

@@ -45,23 +45,6 @@ app.controller('TaskList', function($scope, $http, GetTasks){
         })
     }
 
-////// TEST GETTING USERS
-    /*$http({
-        url: 'http://taskapp:8888/drupal/user/1?_format=json', // Hit the endpoint and pass the ID of the content
-        method: 'GET', // Send a pacth request to update the content
-        headers: {
-            //"Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
-            //"X-CSRF-Token": "1YXotIM8Aonl0eA1Fz50-f46pPYzGNhvwDoyv85_sdM", // token can be found at /rest/session/token
-            "Content-Type": "*",
-            //"Accept": 'application/json'
-        },
-    })
-    .success(function(data){
-        console.log(data);
-    });*/
-
-    ///////////// END TEST GETTING USERS
-
 });
 
 
@@ -103,3 +86,25 @@ app.controller('singleTask', function($scope, $http, $routeParams){
         });
     }
 });
+
+app.controller('LoginForm', function($scope, $http, $httpParamSerializer){
+
+    $scope.user = {'form_id':'user_login_form'};
+
+    $scope.userLogin = function(){
+
+        $http({
+            method: 'POST',
+            url: 'http://taskapp:8888/drupal/user/login',
+            data: $httpParamSerializer($scope.user),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        })
+        .success(function(data){
+            console.log($httpParamSerializer($scope.user));
+            //console.log(data);
+        });
+    }
+    
+})

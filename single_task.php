@@ -1,4 +1,4 @@
-<div data-ng-controller="singleTask">
+<div data-ng-controller="SingleTask">
 
 	<h2 data-ng-bind-html="task.title"></h2>
 	<p>

@@ -16,7 +16,6 @@
         <script src="services.js"></script>
         <script src="controllers.js"></script>
         <script src="vendor/loading-bar.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <style>
             .sidebar{
                 float:left;
@@ -42,6 +41,9 @@
     </head>
     <body>
 
+        <!--
+        Commenting out user login form
+
         <div data-ng-controller="LoginForm">
             {{user}}
             <form data-ng-submit="userLogin()">
@@ -54,7 +56,7 @@
                     <button class="btn btn-primary" type="submit">Login</button>
                 </div>
             </form>
-        </div>
+        </div>-->
 
         <div data-ng-controller="TaskList" class="sidebar">
             <h1>Tasks</h1>
@@ -64,6 +66,7 @@
             <ul class="tasks">
                 <li data-ng-repeat="task in tasks | filter:taskFilter | orderBy:'task.nid'">
                     <a href="task/{{ task.nid }}" data-ng-bind-html="task.title"></a>
+                    <a href="#" data-ng-click="deleteTask(task.nid)">Delete {{task.nid}}</a>
                 </li>
             </ul>
             <hr />

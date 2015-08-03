@@ -14,8 +14,3 @@ app.service('GetTasks', function($http){
         })
     }
 });
-
-
-app.service('GetUser', function($http){
-
-});

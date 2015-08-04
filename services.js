@@ -32,6 +32,18 @@ app.service('TaskService', ['$http',
             },
         })
     }
+
+    this.updateTaskStatus = function(id, package){
+        return $http({
+            url: 'http://taskapp:8888/drupal/node/' + id, // Hit the endpoint and pass the ID of the content
+            method: 'PATCH', // Send a pacth request to update the content
+            data: package,
+            headers: {
+                "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
+                "Content-Type": "application/hal+json",
+            },
+        })
+    }
     
 }]);
 

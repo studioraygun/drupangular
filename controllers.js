@@ -51,7 +51,9 @@ app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'Test
 // Create a controller to handle viewing the task
 // Pass in $routeParams which enables us to get the ID passed
 // This is definedby the $routeProvider in app config
-app.controller('SingleTask', function($scope, $http, $routeParams){
+app.controller('SingleTask', ['$scope', '$http', '$routeParams', 'TaskService', 
+    function($scope, $http, $routeParams, TaskService){
+
     $http.get('http://taskapp:8888/drupal/tasks/' + $routeParams.id)
     .success(function(data){
         $scope.task = data[0];
@@ -64,27 +66,18 @@ app.controller('SingleTask', function($scope, $http, $routeParams){
         // http://stackoverflow.com/a/18269305/874691
         status = (status == 1) ? 0 : 1;
 
-        // Set up a blank object
-        var package = {};
-        // Pass it some detals
-        package.field_status = [{'value': status}]
-        package._links = {"type":{"href":"http://taskapp:8888/drupal/rest/type/node/task"}}
+        var package = {
+            'field_status': { 'value': status },
+            '_links': { 'type': { 'href': 'http://taskapp:8888/drupal/rest/type/node/task' }}
+        }
 
-        $http({
-            url: 'http://taskapp:8888/drupal/node/' + $routeParams.id, // Hit the endpoint and pass the ID of the content
-            method: 'PATCH', // Send a pacth request to update the content
-            data: package,
-            headers: {
-                "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
-                "Content-Type": "application/hal+json",
-            },
-        })
+        TaskService.updateTaskStatus($routeParams.id, package)
         .success(function(data){
             // Update the status field in the view
             $scope.task.field_status = status;
         });
     }
-});
+}]);
 
 
 

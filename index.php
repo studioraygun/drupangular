@@ -66,7 +66,7 @@
             <ul class="tasks">
                 <li data-ng-repeat="task in tasks | filter:taskFilter | orderBy:'task.nid'">
                     <a href="task/{{ task.nid }}" data-ng-bind-html="task.title"></a>
-                    <a href="#" data-ng-click="deleteTask(task.nid)">Delete {{task.nid}}</a>
+                    (<a href="#" data-ng-click="deleteTask(task.nid)">Delete</a>)
                 </li>
             </ul>
             <hr />

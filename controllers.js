@@ -1,70 +1,51 @@
 // Create a controller, inject scope and http
 // Also inject the GetTasks service (see services.js)
-app.controller('TaskList', function($scope, $http, GetTasks, $location){
+app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'TestService', 
+    function($scope, $http, TaskService, $location, TestService){
 
     // Call the GetTasks service and the tasks method
     // Then pass the data form this to the scope
-    GetTasks.tasks(function(data){
+    TaskService.getTasks(function(data){
         $scope.tasks = data;
-    })
+    });
 
     // When the newTask form element is submitted, fire this function
     $scope.newTask = function(){
 
-        // Set up a blank object
-        var package = {};
-        // Pass it some detals
-        package.title = [{'value': $scope.title}]
-        package.body = [{'value': $scope.body}]
-        package._links = {"type":{"href":"http://taskapp:8888/drupal/rest/type/node/task"}}
+        // Get our data from the form
+        var package = {
+            'title': { 'value': $scope.title },
+            'body': { 'value': $scope.body },
+            '_links': { 'type': { 'href': 'http://taskapp:8888/drupal/rest/type/node/task' }}
+        }
 
-        // Do a http post request to the api endpoint (entity/node)
-        // This page was useful for methods - https://www.drupal.org/node/2405657
-        $http({
-            url: 'http://taskapp:8888/drupal/entity/node',
-            method: 'POST',
-            data: package, // pass the data object as defined above
-            headers: {
-                "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
-                //"X-CSRF-Token": "ZsCnHjuCHsEO-FLaJMfVrfcklSUFPHlc1zPeRshBpV4", // token can be found at /rest/session/token
-                "Content-Type": "application/hal+json",
-            },
-        })
-        // On success, do something
-        .success(function(data, status, headers, config){
+        TaskService.addTask(package)
+        .success(function(){
+            console.log("Added");
 
             // Clear the inputs
             $scope.title = '';
             $scope.body = '';
 
-            // Re-call the tasks from the service. We need to do this so that the list updates
-            // We could use push, but we would not be able to get the newly created URL if we took this approach
-            GetTasks.tasks(function(data){
+            TaskService.getTasks(function(data){
                 $scope.tasks = data;
-            })
+            });
         })
     }
 
     $scope.deleteTask = function(id){
-        $http({
-            url: 'http://taskapp:8888/drupal/node/' + id,
-            method: 'DELETE',
-            headers: {
-                "Authorization": "Basic YWRtaW46MTIzcXdl", // encoded user/pass - this is admin/123qwe
-                "Content-Type": "application/hal+json",
-            },
-        })
-        .success(function(data){
-            GetTasks.tasks(function(data){
+
+        TaskService.deleteTask(id)
+        .success(function(){
+            TaskService.getTasks(function(data){
                 $scope.tasks = data;
             });
-
             // Redirect to the task list
             $location.path('/');
         })
     }
 
-});
+}]);
 
 
 // Create a controller to handle viewing the task

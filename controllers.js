@@ -1,13 +1,24 @@
 // Create a controller, inject scope and http
 // Also inject the GetTasks service (see services.js)
-app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'TestService', 
-    function($scope, $http, TaskService, $location, TestService){
+app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'TestService', '$timeout',
+    function($scope, $http, TaskService, $location, TestService, $timeout){
 
     // Call the GetTasks service and the tasks method
     // Then pass the data form this to the scope
-    TaskService.getTasks(function(data){
-        $scope.tasks = data;
-    });
+    // Addition: created a poller which uses the timeout service to query the feed every 5 seconds
+    // Upon querying, it just updates the task list.
+    
+    //var count = 0;
+    var poller = function() {
+        $timeout(poller, 5000);
+        //count++;
+        //count = count;
+        //console.log(count);
+        TaskService.getTasks(function(data){
+            $scope.tasks = data;
+        });
+    }
+    poller();
 
     // When the newTask form element is submitted, fire this function
     $scope.newTask = function(){
@@ -19,6 +30,7 @@ app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'Test
             '_links': { 'type': { 'href': 'http://taskapp:8888/drupal/rest/type/node/task' }}
         }
 
+        // Call the TaskService object with the addTask method
         TaskService.addTask(package)
         .success(function(){
             console.log("Added");
@@ -27,6 +39,7 @@ app.controller('TaskList', ['$scope', '$http', 'TaskService', '$location', 'Test
             $scope.title = '';
             $scope.body = '';
 
+            // Re-call the list of tasks so that it updates
             TaskService.getTasks(function(data){
                 $scope.tasks = data;
             });
@@ -75,6 +88,19 @@ app.controller('SingleTask', ['$scope', '$http', '$routeParams', 'TaskService',
         .success(function(data){
             // Update the status field in the view
             $scope.task.field_status = status;
+        });
+    }
+
+    $scope.updateRating = function(rating){
+        var package = {
+            'field_rating': { 'value': rating },
+            '_links': { 'type': { 'href': 'http://taskapp:8888/drupal/rest/type/node/task' }}
+        }
+
+        TaskService.updateTaskRating($routeParams.id, package)
+        .success(function(data){
+
+            $scope.task.field_rating = rating;
         });
     }
 }]);
